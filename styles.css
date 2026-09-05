@@ -501,3 +501,30 @@ img,svg,video{max-width:100%;height:auto;}
   .compare-top h3 strong{font-size:34px;}
   .compare-top p,.premium-points p,.compare-block li{font-size:14.5px;}
 }
+
+
+/* V15 keep only comparison cards as final pricing CTA */
+.compare-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;}
+.compare-actions .btn{width:100%;text-align:center;line-height:1.35;min-height:52px;}
+.compare-actions .btn.consult{background:transparent;color:var(--ink);border:1px solid var(--ink);}
+.compare-actions .btn.consult:hover{background:#f5ead8;transform:translateY(-2px);}
+.compare-section .btn.primary{background:var(--ink);color:var(--paper);border:1px solid var(--ink);}
+.compare-section .btn.primary:hover{background:var(--rust);border-color:var(--rust);transform:translateY(-2px);}
+.compare-head h2{word-break:normal;overflow-wrap:break-word;text-wrap:balance;}
+.compare-head p:last-child{word-break:normal;overflow-wrap:break-word;}
+.compare-top h3{word-break:normal;overflow-wrap:break-word;text-wrap:balance;}
+.compare-top h3 strong{word-break:keep-all;white-space:nowrap;}
+.compare-block strong,.premium-points strong{word-break:normal;overflow-wrap:break-word;text-wrap:pretty;}
+@media(max-width:760px){
+  .compare-section{padding-bottom:104px;}
+  .compare-actions{grid-template-columns:1fr;gap:10px;}
+  .compare-actions .btn{min-height:50px;font-size:15px;}
+  .compare-top h3{font-size:26px;line-height:1.35;}
+  .compare-top h3 strong{font-size:36px;white-space:normal;}
+  .compare-head h2{font-size:29px;line-height:1.38;}
+}
+@media(max-width:390px){
+  .compare-head h2{font-size:27px;}
+  .compare-card{padding:20px 14px;}
+  .compare-actions .btn{font-size:14px;padding-left:14px;padding-right:14px;}
+}
