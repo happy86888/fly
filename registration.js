@@ -62,7 +62,7 @@
   planCards.forEach(card => card.addEventListener('click', () => setPlan(card.dataset.planCard)));
   paymentMethods.forEach(button => button.addEventListener('click', () => setPaymentMethod(button.dataset.paymentMethod)));
 
-  fetch('payment/public-config.php', { cache: 'no-store' })
+  fetch('https://power.briankill.com/payment/public-config.php', { cache: 'no-store' })
     .then(r => r.ok ? r.json() : null)
     .then(data => { if (data && data.sandbox) sandboxNotice.hidden = false; })
     .catch(() => {});
@@ -128,7 +128,7 @@
     paymentLoading.hidden = false;
 
     try {
-      const response = await fetch('payment/create.php', {
+      const response = await fetch('https://power.briankill.com/payment/create.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(registrationPayload())
@@ -145,7 +145,7 @@
     }
   });
 
-  finishButton.addEventListener('click', () => {
+  finishButton.addEventListener('click', async () => {
     const digits = last5.value.replace(/\D/g, '').slice(0, 5);
     last5.value = digits;
     if (!paymentDate.value) {
@@ -157,24 +157,47 @@
       return;
     }
     paymentError.textContent = '';
+    finishButton.disabled = true;
+
     const plan = plans[selectedPlan];
     const payload = registrationPayload();
     const contract = payload.contract ? '需要' : '不需要';
-    const message = [
-      '老師您好，我要回報課程報名資料：',
-      `方案：${plan.label}（${formatMoney(plan.price)}）`,
-      `稱呼：${payload.name}`,
-      `手機：${payload.phone}`,
-      `Email：${payload.email}`,
-      `付款方式：銀行轉帳`,
-      `付款日期：${paymentDate.value}`,
-      `匯款末五碼：${digits}`,
-      `服務契約：${contract}`,
-      payload.note ? `備註：${payload.note}` : '',
-      '',
-      '報名成功，麻煩協助確認，謝謝。'
-    ].filter(Boolean).join('\n');
-    const url = `https://line.me/R/oaMessage/@tpq5223k/?${encodeURIComponent(message)}`;
-    window.location.href = url;
+
+    try {
+      const response = await fetch('https://power.briankill.com/payment/bank-submit.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          ...payload,
+          payment_date: paymentDate.value,
+          last5: digits
+        })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || '目前無法送出報名資料。');
+      }
+
+      const message = [
+        '老師您好，我要回報課程報名資料：',
+        `訂單編號：${data.order_id}`,
+        `方案：${plan.label}（${formatMoney(plan.price)}）`,
+        `稱呼：${payload.name}`,
+        `手機：${payload.phone}`,
+        `Email：${payload.email}`,
+        `付款方式：銀行轉帳`,
+        `付款日期：${paymentDate.value}`,
+        `匯款末五碼：${digits}`,
+        `服務契約：${contract}`,
+        payload.note ? `備註：${payload.note}` : '',
+        '',
+        '已送出報名資料，麻煩協助確認，謝謝。'
+      ].filter(Boolean).join('\n');
+      const url = `https://line.me/R/oaMessage/@tpq5223k/?${encodeURIComponent(message)}`;
+      window.location.href = url;
+    } catch (err) {
+      paymentError.textContent = err && err.message ? err.message : '目前無法送出報名資料，請稍後再試。';
+      finishButton.disabled = false;
+    }
   });
 })();
