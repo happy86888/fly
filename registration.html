@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f0e6">
+  <title>課程報名｜BK 機票里程實戰課</title>
+  <meta name="description" content="BK 機票里程實戰課報名頁。選擇 NT$19,800 完整課程或 NT$29,800 完整課程＋美卡諮詢方案。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+  <header class="reg-header">
+    <a class="reg-brand" href="index.html" aria-label="回到課程首頁">
+      <span class="reg-brand-mark">BK</span>
+      <span><strong>機票里程實戰課</strong><small>REGISTRATION</small></span>
+    </a>
+    <a class="back-link" href="index.html#price">← 回課程頁</a>
+  </header>
+
+  <main class="registration-shell">
+    <section class="registration-intro">
+      <p class="eyebrow">ENROLLMENT</p>
+      <h1>選擇方案，完成報名。</h1>
+      <p>選擇 <strong>19,800</strong> 或 <strong>29,800</strong> 方案，填寫基本資料後，可直接使用信用卡線上付款，也可以保留銀行轉帳。</p>
+      <div class="steps" aria-label="報名步驟">
+        <span class="active" data-step-dot="1"><b>1</b> 選方案與資料</span>
+        <i></i>
+        <span data-step-dot="2"><b>2</b> 選擇付款方式</span>
+      </div>
+    </section>
+
+    <section class="registration-card" id="step1">
+      <div class="card-head">
+        <span>STEP 01</span>
+        <h2>先選擇你的課程方案</h2>
+      </div>
+
+      <div class="plan-options" role="radiogroup" aria-label="課程方案">
+        <label class="plan-option" data-plan-card="19800">
+          <input type="radio" name="course_plan" value="19800">
+          <span class="check"></span>
+          <span class="plan-copy">
+            <small>完整學習方案</small>
+            <strong>機票里程實戰課</strong>
+            <em>完整錄播課程＋一年一對一諮詢／開票陪跑</em>
+          </span>
+          <b>NT$19,800</b>
+        </label>
+
+        <label class="plan-option premium" data-plan-card="29800">
+          <input type="radio" name="course_plan" value="29800">
+          <span class="check"></span>
+          <span class="plan-copy">
+            <small>進階整合方案</small>
+            <strong>完整課程＋美卡諮詢服務</strong>
+            <em>包含 19,800 全部內容，再加美卡與點數策略整合</em>
+          </span>
+          <b>NT$29,800</b>
+        </label>
+      </div>
+
+      <form id="registrationForm" novalidate>
+        <div class="form-grid">
+          <label>
+            <span>怎麼稱呼你 *</span>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="例如：Brian" required>
+          </label>
+          <label>
+            <span>手機 *</span>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="09xxxxxxxx" required>
+          </label>
+          <label class="full">
+            <span>Email *</span>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" required>
+          </label>
+          <label class="full">
+            <span>備註／你最想解決的問題</span>
+            <textarea id="note" name="note" rows="4" placeholder="例如：想安排歐洲商務艙、目前有哪些里程／信用卡，或其他想先讓我知道的需求。"></textarea>
+          </label>
+        </div>
+
+        <label class="contract-check">
+          <input id="contract" type="checkbox">
+          <span>我需要紙本或電子版服務契約書（公司報帳、內部簽核或個人留存皆可）</span>
+        </label>
+
+        <p class="form-error" id="formError" role="alert"></p>
+        <button class="primary-button" type="submit">下一步：選擇付款方式</button>
+      </form>
+    </section>
+
+    <section class="registration-card payment-card" id="step2" hidden>
+      <div class="card-head">
+        <span>STEP 02</span>
+        <h2>選擇付款方式</h2>
+        <p>確認方案後，可直接刷卡或使用銀行轉帳。</p>
+      </div>
+
+      <div class="order-summary">
+        <div>
+          <small>你的方案</small>
+          <strong id="summaryPlan">—</strong>
+        </div>
+        <div class="price-area">
+          <small>課程金額</small>
+          <strong id="summaryPrice">—</strong>
+        </div>
+      </div>
+
+      <div class="sandbox-notice" id="sandboxNotice" hidden>
+        <strong>PChomePay 測試環境</strong>
+        <span>目前刷卡功能使用 Sandbox 測試，不會產生正式扣款。正式上線前需換成正式 APP ID / SECRET。</span>
+      </div>
+
+      <div class="payment-methods" role="tablist" aria-label="付款方式">
+        <button class="payment-method active" type="button" data-payment-method="card" aria-selected="true">
+          <span class="method-icon">◎</span>
+          <span><strong>信用卡線上付款</strong><small>透過 PChomePay 安全付款頁</small></span>
+        </button>
+        <button class="payment-method" type="button" data-payment-method="bank" aria-selected="false">
+          <span class="method-icon">↗</span>
+          <span><strong>銀行轉帳</strong><small>完成匯款後回報末五碼</small></span>
+        </button>
+      </div>
+
+      <div class="payment-panel" id="cardPanel">
+        <div class="card-payment-box">
+          <p class="eyebrow">SECURE CARD PAYMENT</p>
+          <h3>前往 PChomePay 完成刷卡</h3>
+          <p>按下按鈕後會離開本站，前往 PChomePay 的付款頁輸入信用卡資料。本站不會接觸、儲存你的卡號或安全碼。</p>
+          <div class="card-brands" aria-label="支援信用卡"><span>VISA</span><span>Mastercard</span><span>JCB</span></div>
+          <p class="payment-safe-note">目前設定為信用卡一次付清。付款完成後會自動帶你回到報名完成頁。</p>
+          <p class="form-error" id="cardPaymentError" role="alert"></p>
+          <button class="primary-button" id="startCardPayment" type="button">前往安全刷卡頁</button>
+          <div class="payment-loading" id="paymentLoading" hidden>正在建立安全付款訂單，請稍候…</div>
+        </div>
+      </div>
+
+      <div class="payment-panel" id="bankPanel" hidden>
+        <div class="bank-box">
+          <div class="bank-title">
+            <span>BANK TRANSFER</span>
+            <strong>銀行匯款資料</strong>
+          </div>
+          <dl>
+            <div><dt>銀行</dt><dd>中國信託</dd></div>
+            <div><dt>銀行代碼</dt><dd>822</dd></div>
+            <div><dt>匯款帳號</dt><dd class="account">115540-345068</dd></div>
+          </dl>
+          <p>沿用原設定：跨行匯款可扣除 NT$15 手續費，因此 19,800 方案可匯 NT$19,785；29,800 方案可匯 NT$29,785。</p>
+        </div>
+
+        <div class="payment-form">
+          <label>
+            <span>付款日期 *</span>
+            <input id="paymentDate" type="date" required>
+          </label>
+          <label>
+            <span>匯款帳號末五碼 *</span>
+            <input id="last5" type="text" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" placeholder="例如：12345" required>
+          </label>
+        </div>
+
+        <div class="payment-note">
+          <strong>完成後怎麼做？</strong>
+          <p>按下「完成報名並用 LINE 回報」，會開啟 BK 的 LINE，並帶入你的報名資訊。</p>
+        </div>
+
+        <p class="form-error" id="paymentError" role="alert"></p>
+        <button class="primary-button" id="finishRegistration" type="button">完成報名並用 LINE 回報</button>
+      </div>
+
+      <div class="final-actions only-back">
+        <button class="secondary-button" id="backToStep1" type="button">← 修改報名資料</button>
+      </div>
+    </section>
+
+    <section class="trust-note">
+      <p class="eyebrow">NEED HELP?</p>
+      <h2>還不確定選哪個方案？</h2>
+      <p>可以先 LINE 詢問，我會依你目前的里程、信用卡、旅遊需求與想學到的範圍，協助你判斷 19,800 或 29,800 哪個比較適合。</p>
+      <a href="https://line.me/R/ti/p/@tpq5223k" target="_blank" rel="noopener">LINE 諮詢</a>
+    </section>
+  </main>
+
+  <footer class="reg-footer">
+    <span>BK AIR MILES COURSE</span>
+    <a href="index.html">回課程首頁</a>
+  </footer>
+
+  <script src="registration.js"></script>
+</body>
+</html>
